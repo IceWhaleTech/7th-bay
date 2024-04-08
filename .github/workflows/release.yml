@@ -39,7 +39,7 @@ jobs:
       - name: Compile Sketch
         run: |
           arduino-cli compile --fqbn esp32:esp32:esp32s3 ./ --build-path ../
-      - name: test
+      - name: Copy Bin
         run: |
           cd ../
           cp esp32.ino.bin ./esp32/esp32.ino.bin
@@ -47,4 +47,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          prerelease: true
           files: esp32.ino.bin
