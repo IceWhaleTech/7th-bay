@@ -16,11 +16,15 @@ jobs:
       - name: Install Arduino CLI
         uses: arduino/setup-arduino-cli@v1
 
+      - name: Install PySerial
+        run: |
+          pip3 install pyserial
+
       - name: test
         run: |
-          pip3
-          echo "-----------"
-          pip
+          ls
+          arduino-cli config dump
+
 
       - name: Compile Sketch
         run: |
