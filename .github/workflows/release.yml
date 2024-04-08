@@ -38,7 +38,7 @@ jobs:
 
       - name: Compile Sketch
         run: |
-          arduino-cli compile --fqbn esp32:esp32:esp32s3 ./ --build-path ../
+          arduino-cli compile --fqbn esp32:esp32:esp32c3 ./ --build-path ../
       - name: Copy Bin
         run: |
           cd ../
