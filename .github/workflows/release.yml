@@ -32,7 +32,7 @@ jobs:
 
       - name: Copy library to Arduino library folder
         run: |
-          cp Metro -r  /home/runner/Arduinowork/libraries
+          cp Metro -r  /home/runner/Arduino/libraries
       
       
       
