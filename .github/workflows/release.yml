@@ -14,13 +14,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Arduino CLI
-        uses: arduino/setup-arduino-cli@v1	
-	
+        uses: arduino/setup-arduino-cli@v1
+
       - name: test
-      	run: |
-	  pip3
-	  echo "-----------"
-	  pip
+        run: |
+          pip3
+          echo "-----------"
+          pip
 
       - name: Compile Sketch
         run: |
