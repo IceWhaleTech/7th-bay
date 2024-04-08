@@ -41,7 +41,7 @@ jobs:
           cd ..
       - name: test
         run: |
-          ls /home/runner/Arduinowork/libraries
+          ls /home/runner/Arduino/libraries
           arduino-cli config dump
 
 
