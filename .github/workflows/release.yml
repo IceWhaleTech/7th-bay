@@ -42,7 +42,7 @@ jobs:
       - name: test
         run: |
           cd ../
-          ls
+          cp esp32.ino.bin ./esp32/esp32.ino.bin
       - name: Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
