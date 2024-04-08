@@ -26,10 +26,6 @@ jobs:
           arduino-cli lib install "ArduinoJson"@7.0.4
       
 
-      - name: test
-        run: |
-          arduino-cli config dump
-
       - name: Copy library to Arduino library folder
         run: |
           cp Metro -r  /home/runner/Arduino/libraries
@@ -44,8 +40,8 @@ jobs:
       - name: Compile Sketch
         run: |
           pwd
-          arduino-cli compile --fqbn esp32:esp32:esp32s3 --build-path ./ ./esp32/
+          arduino-cli compile --fqbn esp32:esp32:esp32s3 ./ --build-path ../
       - name: test
         run: |
-          cd ./esp32
+          cd ../
           ls
