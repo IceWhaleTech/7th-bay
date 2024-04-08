@@ -1,0 +1,28 @@
+name: Arduino Build
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Arduino CLI
+        uses: arduino/setup-arduino-cli@v1	
+	
+      - name: test
+      	run: |
+	  pip3
+	  echo "-----------"
+	  pip
+
+      - name: Compile Sketch
+        run: |
+          arduino-cli compile --fqbn arduino:avr:uno path/to/your/sketch
+
