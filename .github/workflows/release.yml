@@ -20,13 +20,26 @@ jobs:
         run: |
           pip3 install pyserial
 
+      - name: Install Arduino Library
+        run: |
+          arduino-cli lib install "Adafruit NeoPixel"@1.12.0
+          arduino-cli lib install "ArduinoJson"@7.0.4
+      - name: Copy library to Arduino library folder
+        run: |
+          cp Metro -r  /home/runner/Arduinowork/libraries
+      
+      
+      
+      - name: cd to parent directory
+        run: |
+          cd ..
       - name: test
         run: |
-          ls
+          ls /home/runner/Arduinowork/libraries
           arduino-cli config dump
 
 
       - name: Compile Sketch
         run: |
-          arduino-cli compile --fqbn arduino:avr:uno path/to/your/sketch
+          arduino-cli compile --fqbn esp32:esp32:esp32s3 --build-path ./esp32 ./esp32
 
