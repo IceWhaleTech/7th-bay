@@ -30,11 +30,6 @@ jobs:
         run: |
           cp Metro -r  /home/runner/Arduino/libraries
       
-      
-      
-      - name: cd to parent directory
-        run: |
-          cd ..
 
 
       - name: Compile Sketch
