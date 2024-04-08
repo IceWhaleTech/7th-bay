@@ -24,6 +24,12 @@ jobs:
         run: |
           arduino-cli lib install "Adafruit NeoPixel"@1.12.0
           arduino-cli lib install "ArduinoJson"@7.0.4
+      
+
+      - name: test
+        run: |
+          arduino-cli config dump
+
       - name: Copy library to Arduino library folder
         run: |
           cp Metro -r  /home/runner/Arduinowork/libraries
