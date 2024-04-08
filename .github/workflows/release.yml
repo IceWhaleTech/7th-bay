@@ -39,15 +39,11 @@ jobs:
       - name: cd to parent directory
         run: |
           cd ..
-      - name: test
-        run: |
-          ls /home/runner/Arduino/libraries
-          arduino-cli config dump
 
 
       - name: Compile Sketch
         run: |
-          arduino-cli compile --fqbn esp32:esp32:esp32s3 --build-path ./esp32 ./esp32
+          arduino-cli compile --fqbn esp32:esp32:esp32s3 --build-path ./esp32 ./esp32/
       - name: test
         run: |
           cd ./esp32
