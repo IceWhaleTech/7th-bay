@@ -20,6 +20,11 @@ jobs:
         run: |
           pip3 install pyserial
 
+      - name: Config Arduino CLI
+        run: |
+          arduino-cli config init
+          arduino-cli config set board_manager.additional_urls https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+      
       - name: Install ESP32 Board
         run: |
           arduino-cli core update-index
