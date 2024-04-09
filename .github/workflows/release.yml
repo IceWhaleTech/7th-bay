@@ -28,7 +28,7 @@ jobs:
       - name: Install ESP32 Board
         run: |
           arduino-cli core update-index
-          arduino-cli core install esp32:esp32
+          arduino-cli core install esp32:esp32@2.0.14
       - name: Install Arduino Library
         run: |
           arduino-cli lib install "Adafruit NeoPixel"@1.12.0
