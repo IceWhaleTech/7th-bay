@@ -118,7 +118,7 @@ boolean cmdEvent = false;
 
 // Pin to use to send signals to WS2812B
 /* WS2812 Configuration info */
-#define LED_PIN 0
+#define LED_PIN 2
 #define NUM_PIXELS 10
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
