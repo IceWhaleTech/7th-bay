@@ -155,6 +155,7 @@ void overTheAir_server()
       {
     server.sendHeader("Connection", "close");
     server.send(200, "text/plain", (Update.hasError()) ? "FAIL" : "OK");
+    delay(1000);
     ESP.restart(); },
       []()
       {
