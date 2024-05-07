@@ -54,8 +54,9 @@ jobs:
         with:
           prerelease: true
           files: esp32.ino.bin
-      - name: tar
-        run: tar -czf esp32.ino.bin.tar.gz esp32.ino.bin
+      - name: Tar
+        run: |
+          tar -czf esp32.ino.bin.tar.gz esp32.ino.bin
       - name: Get version
         id: get_version
         # run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
