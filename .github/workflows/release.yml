@@ -54,3 +54,21 @@ jobs:
         with:
           prerelease: true
           files: esp32.ino.bin
+      - name: tar
+        run: |
+          tar –czf esp32.ino.bin.tar.gz esp32.ino.bin
+      - name: Get version
+        id: get_version
+        # run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        run: echo "VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_OUTPUT
+        
+      - name: Upload to oss
+        id: upload_to_oss
+        uses: tvrcgo/upload-to-oss@master
+        with:
+          key-id: ${{ secrets.OSS_KEY_ID }}
+          key-secret: ${{ secrets.OSS_KEY_SECRET }}
+          region: oss-cn-shanghai
+          bucket: casaos
+          assets: |
+            esp32.ino.bin.tar.gz:/IceWhaleTech/IceWhale-Esp32/releases/download/${{ steps.get_version.outputs.VERSION }}/esp32.ino.bin.tar.gz
