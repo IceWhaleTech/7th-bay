@@ -1,4 +1,15 @@
 /*
+  *Date:20240511
+    *Version : 0.6
+
+    logs:
+    1.Change the number of lights
+  *Date:20240409
+    *Version:0.5
+    
+    Logs:
+    1. Add Over The Air feature
+    2. Add Version feedback
  * Date: 20240403
    Version: 0.4
 
@@ -45,6 +56,33 @@ IPAddress subnet(255, 255, 255, 0);
 
 WebServer server(80);
 
+
+DynamicJsonDocument doc(1024);
+
+boolean cmdEvent = false;
+
+// Pin to use to send signals to WS2812B
+/* WS2812 Configuration info */
+#define LED_PIN 2
+#define NUM_PIXELS 13
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+// Timer controllers
+
+Metro colorAlgorithmTimer = Metro(15);
+Metro lightUpdater = Metro(10);
+Metro debugTimer = Metro(100);
+
+/*light_controller_parameter*/
+int effectId = 1;    // 1 ~ 5
+int effectSpeed = 1; // 1 ~ 5
+
+// Color parameter
+int hue = 32;       // 0 ~ 359
+int saturation = 255; // 0 ~ 255
+int lightness = 255;  // 0 ~ 255
+
+uint32_t colors[NUM_PIXELS] = {};
 /*
  * Server Index Page
  */
@@ -112,32 +150,7 @@ const char *serverIndex =
     "});"
     "</script>";
 
-DynamicJsonDocument doc(1024);
 
-boolean cmdEvent = false;
-
-// Pin to use to send signals to WS2812B
-/* WS2812 Configuration info */
-#define LED_PIN 2
-#define NUM_PIXELS 10
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
-
-// Timer controllers
-
-Metro colorAlgorithmTimer = Metro(15);
-Metro lightUpdater = Metro(10);
-Metro debugTimer = Metro(100);
-
-/*light_controller_parameter*/
-int effectId = 2;    // 1 ~ 5
-int effectSpeed = 1; // 1 ~ 5
-
-// Color parameter
-int hue = 17;       // 0 ~ 359
-int saturation = 0; // 0 ~ 255
-int lightness = 0;  // 0 ~ 255
-
-uint32_t colors[10] = {};
 
 void overTheAir_server()
 {
@@ -148,7 +161,9 @@ void overTheAir_server()
     server.sendHeader("Connection", "close");
     server.send(200, "text/html", serverIndex); });
   server.on("/version", HTTP_GET, []()
-            { server.send(200, "application/json", "{\"version\":\"0.5\"}"); });
+            { server.send(200, "application/json", "{\"version\":\"0.5\"}"); 
+            
+            });
   /*handling uploading firmware file */
   server.on(
       "/update", HTTP_POST, []()
@@ -290,7 +305,7 @@ void jsonParser()
     break;
 
   case 5:
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i <NUM_PIXELS; i++)
     {
 
       unsigned int h = map(jsonArray[i]["h"], 0, 255, 0, 65537);
@@ -337,7 +352,7 @@ void lightOnEffect()
 
   lightness = 255;
 
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < NUM_PIXELS; i++)
   {
 
     unsigned int h = map(hue, 0, 255, 0, 65537);
@@ -360,7 +375,7 @@ void fadeEffect()
   else
     colorAlgorithmTimer.interval(15);
 
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < NUM_PIXELS; i++)
   {
 
     unsigned int h = map(hue, 0, 255, 0, 65537);
@@ -374,7 +389,7 @@ void fadeEffect()
 void render()
 {
 
-  for (int i = 0; i < 10; i++)
+  for (int i = 0; i < NUM_PIXELS; i++)
   {
     strip.setPixelColor(i, colors[i]);
   }
