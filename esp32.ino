@@ -161,7 +161,7 @@ void overTheAir_server()
     server.sendHeader("Connection", "close");
     server.send(200, "text/html", serverIndex); });
   server.on("/version", HTTP_GET, []()
-            { server.send(200, "application/json", "{\"version\":\"0.6\"}"); 
+            { server.send(200, "application/json", "{\"version\":\"0.5\"}"); 
             
             });
   /*handling uploading firmware file */
