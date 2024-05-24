@@ -74,4 +74,4 @@ jobs:
           region: oss-cn-shanghai
           bucket: casaos
           assets: |
-            esp32.ino.bin.tar.gz:/IceWhaleTech/IceWhale-Esp32/releases/download/${{ steps.get_version.outputs.VERSION }}/esp32.ino.bin.tar.gz
+            esp32.ino.bin.${{ steps.get_version.outputs.VERSION }}.tar.gz:/IceWhaleTech/IceWhale-Esp32/releases/download/${{ steps.get_version.outputs.VERSION }}/esp32.ino.bin.tar.gz
