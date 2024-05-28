@@ -47,6 +47,7 @@ jobs:
       - name: Copy Bin
         run: |
           cd ../
+          ls
           cp esp32.ino.bin ./esp32/esp32.ino.bin
       - name: Release
         uses: softprops/action-gh-release@v2
