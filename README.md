@@ -35,6 +35,7 @@ Necessary tools: Arduino
 
 1. Install Arduino https://www.arduino.cc/en/software
 2. Install ESP32 board
+   
    ![esp32](./images/install.png)
    
 4. Download and install the library file
