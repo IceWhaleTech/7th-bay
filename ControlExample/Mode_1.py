@@ -19,4 +19,4 @@ response = requests.post(url, json=data_template)
 
 # Print the response status code and result
 print(f"Status Code: {response.status_code}")
-
+# If the request is successful, it returns Status Code: 200
