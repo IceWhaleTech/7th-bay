@@ -47,7 +47,7 @@ Necessary tools: Arduino
 3. Choose the correct serial port: `Tools - >  Port`
 4. Compile and upload code to ESP32: Click `Upload` button
 5. Run and wait for the result
-   ![esp32](./images/1280X1280.PNG)
+   ![esp32](./images/run.png)
 
 ### Control method - Wi-Fi
 
