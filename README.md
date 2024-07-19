@@ -35,8 +35,9 @@ Necessary tools: Arduino
 
 1. Install Arduino https://www.arduino.cc/en/software
 2. Install ESP32 board
-   ![esp32](./images/1280X1280.PNG)
-3. Download and install the library file
+   ![esp32](./images/install.png)
+   
+4. Download and install the library file
    
    Download the Adafruit_NeoPixel, ArduinoJson, Metro files in the Library and place them in Arduino's libraries .
 
