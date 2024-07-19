@@ -20,10 +20,8 @@ GPIO 2: Connect WS2812B LED light strip data cable.
 
 ESP32 details:
 
-- ESP32 Structure Diagram:
-     ![esp32](./Hardware/ESP32-C3Dimensions.png)
-- ESP32 Schematics: 
-     ![esp32](./Hardware/Hardware/ESP32_C3Schematic.png)
+- ESP32 Structure Diagram: Hardware/ESP32-C3Dimensions.png
+- ESP32 Schematics: Hardware/Hardware/ESP32_C3Schematic.png
 - Altium Designer file for ESP32: Hardware/Super Mini-ESP32C3-Form Factor. PcbDoc esp
 
 # User guide
