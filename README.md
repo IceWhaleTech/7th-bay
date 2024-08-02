@@ -1,186 +1,265 @@
 # Introduction
 
-## Project overview
+## Project Overview
 
-ZimaCube's seventh bay lighting project is an IoT project based on Espressif Systems' ESP32 microcontroller, aimed at achieving lighting control and OTA (Over The Air) update functions.
+The ZimaCube 7th Bay is designed not only to provide essential SSD expansion capabilities for flagship devices but also to bring a greater sense of vitality to home computing through customizable lighting. The integration of customizable lighting opens up a world of possibilities: use the 7th Bay light strip to indicate system status, show data transfer speeds, indicate download progress, signal local AI activity, or even sync with your desktop music.
 
-# Hardware Settings
+To realize these ideas, the ZimaCube 7th Bay is built on Espressif Systems' ESP32 microcontroller. The onboard Bluetooth and WiFi capabilities allow independent control of the lighting through ZimaOS or other IoT devices. The ESP32 is solely dedicated to controlling the lights and is isolated from all network and storage functions of the ZimaCube. Additionally, the ESP32 serves as a small web server, offering OTA (Over The Air) firmware updates for customizing light effects.
 
-## Hardware requirements
+### Customizing ZimaCube 7th Bay Lighting
 
-- ZimaCube's seventh bay
-- Type-C data cable
-- Windows computer
+There are two ways to customize the ZimaCube 7th Bay lighting effects:
 
-## Hardware information
+1. Using the official firmware protocol to DIY light control by writing scripts on ZimaOS.
+2. Developing your own ESP32 firmware and protocol for full control of the 7th Bay light strip.
 
-Number of lamps: 13
-GPIO 2: Connect WS2812B LED light strip data cable.
-5V and GND: Power ESP32 development board and connect a ground wire to it.
+### Advantages and Disadvantages of Each Method:
 
-ESP32 details:
+**Method 1:**
 
-- ESP32 Structure Diagram: Hardware/ESP32-C3Dimensions.png
-- ESP32 Schematics: Hardware/Hardware/ESP32_C3Schematic.png
-- Altium Designer file for ESP32: Hardware/Super Mini-ESP32C3-Form Factor. PcbDoc esp
+- **Advantages:** Simple, quick implementation, utilizes existing features, low risk.
+- **Disadvantages:** Limited functionality and performance.
 
-# User guide
+**Method 2:**
 
-## System requirements
+- **Advantages:** Full control, high flexibility, independent operation, optimized performance.
+- **Disadvantages:** High development difficulty, long development cycle.
 
-Operating System: Windows
-Necessary tools: Arduino
+## How to Write a Script for Light Control
 
-## Installation steps
+### 7th Bay Firmware Protocol Introduction
 
-1. Install Arduino https://www.arduino.cc/en/software
-2. Install ESP32 board
-   
-   ![esp32](./images/install.png)
-   
-4. Download and install the library file
-   
-   Download the Adafruit_NeoPixel, ArduinoJson, Metro files in the Library and place them in Arduino's libraries .
+**WiFi Connection:** The ESP32 creates a WiFi network that ZimaOS connects to for remote control and OTA updates.
 
-### Basic use
+**JSON Control:** Control the lighting effects using JSON commands, providing flexibility and easy customization.
 
-1. Open the Arduino IDE and load the `.ino` file in the project
-2. Select Development Board: `Tools - >  Board: - > ESP32 - > ESP32C3 Dev Module`
-3. Choose the correct serial port: `Tools - >  Port`
-4. Compile and upload code to ESP32: Click `Upload` button
-5. Run and wait for the result
-   ![esp32](./images/run.png)
+**OTA Updates:** Supports OTA updates, allowing firmware updates without physical access to the device.
 
-### Control method - Wi-Fi
+**Various Lighting Effects:** Supports multiple predefined lighting effects, such as breathing effect, constant light mode, custom mode, etc.
 
-Connecting to ZimaCube's Wi-Fi：
+### Light Control Methods
 
-Wi-Fi Name: "ZimaCube"
+#### Connecting to ZimaCube's Wi-Fi
 
-Wi-Fi password: "homecloud"
+1. Connect to the Wi-Fi network:
+    - Wi-Fi Name: "ZimaCube"
+    - Wi-Fi Password: "homecloud"
 
-Send a POST request to the IP Address 172.16.1.1 to implement control.
+#### Using the Color Picker
 
-We have set five modes to control the light strip : 'id '= 1~ 5
+To facilitate color selection, use the following online color picker tool: [Online Color Picker](https://www.w3schools.com/colors/colors_picker.asp).
 
-```
-Id = 1 breathing pattern
-Id = 2 always on 
-Id = 3 needs to be developed
-Id = 4 needs to be developed
-Id = 5 custom mode
-```
+#### Steps:
 
-#### Breathing pattern control mode
+1. Open the Online Color Picker.
+2. Use the mouse to select the desired color.
+3. The corresponding HSV (Hue, Saturation, Value) values will be displayed in the color picker interface.
+4. Record these HSV values and convert them to a range suitable for JSON data:
+    - **Hue (H):** h = (Hue value / 360) * 255
+    - **Saturation (S):** s = (Saturation value / 100) * 255
+    - **Value (V):** v = (Value / 100) * 255
 
-```
-In breathing mode, the light strip presents a monochromatic gradual change effect, and the speed of gradual change can be adjusted by 0~ 10.
-```
+#### Example:
 
-Change the color of the lamp by adjusting Hue, Saturation, and Value
-Range of parameters:
+Selecting orange in the color picker provides the following HSV values:
+- **Hue (H):** 30
+- **Saturation (S):** 100
+- **Value (V):** 100
 
-```
-H = 0~ 365
-S = 0~ 255
-V = 0~ 255
-```
+Converted values:
+- **Hue (H):** h = (30 / 360) * 255 ≈ 21
+- **Saturation (S):** s = 255
+- **Value (V):** v = 255
 
-Here is an example of JSON format data for controlling lighting:
+Apply these values to JSON data for light control.
 
-```
+#### Control Modes
+
+##### Mode 1: Breathing Mode
+
+In breathing mode, the light strip displays a single color gradient effect. Adjust the speed and color parameters to control the effect.
+
+- **Speed:** Range 0 ~ 10
+- **Color Parameters:**
+    - **Hue (H):** Range 0 ~ 255
+    - **Saturation (S):** Range 0 ~ 255
+    - **Value (V):** Range 0 ~ 255
+
+**Example JSON Data:**
+
+```json
 {
-      "id":1,
-      "speed":4,
-      "data":[
-          {"h":32,"s":255,"v":255}
-      ]
-}
-```
-
-Python script example path: ControlExample/Mode_1.py
-
-#### Always-on mode control mode
-
-Here is an example of JSON format data for controlling lighting:
-
-```
-{
-      "id":2,
-      "data":[
-          {"h":32,"s":255,"v":255}
-      ]
-}
-```
-
-Python script path: ControlExample/Mode_2.py
-
-#### To be developed
-
-#### To be developed
-
-#### Control method for custom mode
-
-In custom mode, you can control the color and brightness of each lamp.
-Here is an example of JSON format data for controlling lighting:
-
-```
-{
-  "id": 5,
+  "id": 1,  // ID for breathing mode
+  "speed": 4,  // Speed of the color transition, range 0-10
   "data": [
-    {"h": 32, "s": 255, "v":255},
-    {"h": 32, "s": 255, "v":255},
-    {"h": 32, "s": 255, "v":255},   
-    {"h": 32, "s": 255, "v":255},   
-    {"h": 32, "s": 255, "v":255},  
-    {"h": 32, "s": 255, "v":255},    
-    {"h": 32, "s": 255, "v":255},    
-    {"h": 32, "s": 255, "v":255},
-    {"h": 32, "s": 255, "v":255},
-    {"h": 32, "s": 255, "v":255},
-    {"h": 32, "s": 255, "v":255},
-    {"h": 32, "s": 255, "v":255},
-    {"h": 32, "s": 255, "v":255}
+    {"h": 21, "s": 255, "v": 255}
   ]
 }
 ```
 
-Python script path: ControlExample/Mode_5.py
+*** Sending Data to ESP32:***
 
-### OTA Update Tutorial
+1. The ESP32 creates a default WiFi network that ZimaOS connects to. Verify connection with:
+    ```bash
+    ping 172.16.1.1
+    ```
+2. Send an HTTP POST request to `172.16.1.1` with the JSON data:
+    ```bash
+    curl -X POST -H "Content-Type: application/json" -d @yourfile.json http://172.16.1.1/post
+    ```
 
-- Connect to Wi-Fi
-  Connect to Wi-Fi with a computer.
+3. Check the lighting effect.
 
-```
-Name: "ZimaCube"
-Password: "homecloud"
-```
+#### Mode 2: Constant Light Mode
 
-- Enter URL
-  Enter in the browser: 172.16.1.1
+In constant light mode, the light strip remains a single color.
 
-- Upload firmware
-  
+**Color Parameters:**
 
-## Configuration guide
+- **Hue (H):** Range 0 ~ 255
+- **Saturation (S):** Range 0 ~ 255
+- **Value (V):** Range 0 ~ 255
 
-- Configure Wi-Fi parameters
-
-```
-const char *ssid = "your-ssid";      // Enter SSID here
-const char *password = "your-password"; // Enter Password here
-```
-
-- Configure IP address and port
-
-```
-/* Put IP Address details */
-IPAddress local_ip(172, 16, 1, 1);      // Enter IP Address here
-IPAddress gateway(172, 16, 1, 1);       // Enter Gateway here
-IPAddress subnet(255, 255, 255, 0);     // Enter Subnet here
-
-WebServer server(80);                   // Enter Port here
+**Example JSON Data:**
+```json
+{
+  "id": 2,
+  "data": [
+    {"h": 21, "s": 255, "v": 255}
+  ]
+}
 ```
 
+*** Sending Data to ESP32:***
+
+1. The ESP32 creates a default WiFi network that ZimaOS connects to. Verify connection with:
+    ```bash
+    ping 172.16.1.1
+    ```
+2. Send an HTTP POST request to `172.16.1.1` with the JSON data:
+    ```bash
+    curl -X POST -H "Content-Type: application/json" -d @yourfile.json http://172.16.1.1/post
+    ```
+
+3. Check the lighting effect.
+
+ ##### Modes 3 and 4
+
+  - Under development.
+
+##### Mode 5: Custom Mode
+
+In custom mode, you can control the color and brightness of each light individually.
+
+- Color Parameters:
+  - Hue (H): Range 0 ~ 255
+  - Saturation (S): Range 0 ~ 255
+  - Value (V): Range 0 ~ 255
+
+***Example JSON Data:***
+```json
+{
+  "id": 5,  // ID for custom mode
+  "data": [
+    // Each object represents the color and brightness settings for one light
+    {"h": 0, "s": 255, "v": 255},  // Light 1 Red
+    {"h": 85, "s": 255, "v": 255},  // Light 2 Green
+    {"h": 168, "s": 255, "v": 255},  // Light 3 Blue
+    {"h": 42, "s": 255, "v": 255},  // Light 4 Yellow
+    {"h": 212, "s": 255, "v": 255},  // Light 5 Purple
+    {"h": 128, "s": 255, "v": 255},  // Light 6 Cyan
+    {"h": 21, "s": 255, "v": 255},  // Light 7 Orange
+    {"h": 128, "s": 255, "v": 255},  // Light 8 Cyan
+    {"h": 212, "s": 255, "v": 255},  // Light 9 Purple
+    {"h": 42, "s": 255, "v": 255},  // Light 10 Yellow
+    {"h": 168, "s": 255, "v": 255},  // Light 11 Blue
+    {"h": 85, "s": 255, "v": 255},   // Light 12 Green
+    {"h": 0, "s": 255, "v": 255}   // Light 13 Red
+  ]
+}
+
+```
+*** Sending Data to ESP32:***
+
+1. The ESP32 creates a default WiFi network that ZimaOS connects to. Verify connection with:
+    ```bash
+    ping 172.16.1.1
+    ```
+2. Send an HTTP POST request to `172.16.1.1` with the JSON data:
+    ```bash
+    curl -X POST -H "Content-Type: application/json" -d @yourfile.json http://172.16.1.1/post
+    ```
+
+3. Check the lighting effect.
+
+##  How to Develop Your Own 7th Bay Firmware
+
+### Introduction
+
+Using a Windows computer, we demonstrate how to develop your own ESP32 firmware and light effects, as well as how to upload your new firmware.
+
+### Hardware Requirements
+
+- ZimaCube's 7th Bay
+- Type-C data cable
+- Windows computer
+
+### Hardware Information
+
+- Number of LEDs: 13
+- GPIO 2: Connects to the data line of the WS2812B LED strip
+- 5V and GND: Connects to the power and ground of the ESP32 development board
+
+### ESP32 Details:
+
+- **ESP32 Block Diagram:** [下载链接](https://github.com/IceWhaleTech/7th-bay/blob/main/Hardware/ESP32-C3Dimensions.png)
+- **ESP32 Schematic:** [下载链接](https://github.com/IceWhaleTech/7th-bay/blob/main/Hardware/ESP32_C3Schematic.png)
+- **ESP32 Altium Designer Files:** [下载链接](https://github.com/IceWhaleTech/7th-bay/blob/main/Hardware/Super Mini-ESP32C3-Form Factor.PcbDoc)
+
+### Usage Guide
+
+#### System Requirements
+
+- Operating System: Windows 10
+- Necessary Tools: Arduino IDE
+
+#### Installation Steps
+
+1. Install Arduino IDE: [下载链接](https://www.arduino.cc/en/software)
+
+2. Install the ESP32 Board
+
+    ![esp32](./images/install.png)
+
+3. Download and install the libraries:
+
+   1. Adafruit_NeoPixel
+   2. ArduinoJson
+   3. Metro
+   4. Place them in the `libraries` folder of your Arduino IDE installation.
+
+#### Development Configuration
+
+1. Open Arduino IDE.
+
+2. Select the board: Tools -> Board -> ESP32 -> ESP32C3 Dev Module
+
+3. Select the correct port: Tools -> Port
+
+4. Compile and upload code to the ESP32: Click the Upload button
+
+5. Successful upload result:
+
+    ![esp32](./images/run.png)
+
+#### OTA Update Tutorial
+
+1. Connect to WiFi
+   1. Connect your computer to the WiFi network:
+      - Name: "ZimaCube"
+      - Password: "homecloud"
+2. Enter the URL
+   1. Open a browser and go to `172.16.1.1`
+3. Upload Firmware
+   1. Obtain the firmware from the following address: [Firmware Download](https://github.com/IceWhaleTech/7th-bay/tree/main/Firmware)
 
