@@ -225,7 +225,7 @@ Using a Windows computer, we demonstrate how to develop your own ESP32 firmware 
 
 #### Installation Steps
 
-1. Install Arduino IDE: [下载链接](https://www.arduino.cc/en/software)
+1. Install Arduino IDE: [Download](https://www.arduino.cc/en/software)
 
 2. Install the ESP32 Board
 
