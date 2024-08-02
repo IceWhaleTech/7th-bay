@@ -212,9 +212,9 @@ Using a Windows computer, we demonstrate how to develop your own ESP32 firmware 
 
 ### ESP32 Details:
 
-- **ESP32 Block Diagram:** [下载链接](https://github.com/IceWhaleTech/7th-bay/blob/main/Hardware/ESP32-C3Dimensions.png)
-- **ESP32 Schematic:** [下载链接](https://github.com/IceWhaleTech/7th-bay/blob/main/Hardware/ESP32_C3Schematic.png)
-- **ESP32 Altium Designer Files:** [下载链接](https://github.com/IceWhaleTech/7th-bay/blob/main/Hardware/Super Mini-ESP32C3-Form Factor.PcbDoc)
+- **ESP32 Block Diagram:** [Download](https://github.com/IceWhaleTech/7th-bay/blob/main/Hardware/ESP32-C3Dimensions.png)
+- **ESP32 Schematic:** [Download](https://github.com/IceWhaleTech/7th-bay/blob/main/Hardware/ESP32_C3Schematic.png)
+- **ESP32 Altium Designer Files:** [Download](https://github.com/IceWhaleTech/7th-bay/blob/main/Hardware/Super Mini-ESP32C3-Form Factor.PcbDoc)
 
 ### Usage Guide
 
